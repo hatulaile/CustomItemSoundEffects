@@ -76,8 +76,13 @@ public class ItemSoundEffects
                currentChannel.getVolume(out float volume) is RESULT.OK && volume > 0.02f)
         {
             await UniTask.NextFrame();
-            currentChannel.setVolume(volume - fadeTime * Time.deltaTime);
+            if (currentChannel.setVolume(volume - fadeTime * Time.deltaTime / fadeTime) is not RESULT.OK)
+            {
+                break;
+            }
         }
+
+        currentChannel.stop();
     }
 
     private static bool TryGetChannelGroup(out ChannelGroup group)
