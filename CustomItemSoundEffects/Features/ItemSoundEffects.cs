@@ -27,7 +27,7 @@ public class ItemSoundEffects
 
     private Channel _currentChannel;
 
-    public ItemSoundEffects(ItemSoundEffectsEntry entry)
+    internal ItemSoundEffects(ItemSoundEffectsEntry entry)
     {
         Entry = entry;
     }
@@ -110,7 +110,7 @@ public class ItemSoundEffects
 
     public struct ItemSoundEffectsEntry
     {
-        public ItemSoundEffectsEntry(Sound action, Sound use)
+        internal ItemSoundEffectsEntry(Sound action, Sound use)
         {
             Action = action;
             Use = use;

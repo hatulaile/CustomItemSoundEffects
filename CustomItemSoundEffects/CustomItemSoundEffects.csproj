@@ -578,9 +578,12 @@
         <Reference Include="System.Xml"/>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Enums\Result.cs" />
+        <Compile Include="Extensions\RESULTExtensions.cs" />
         <Compile Include="Features\ItemSoundEffects.cs" />
         <Compile Include="Features\ItemSoundEffectsManager.cs" />
         <Compile Include="ModBehaviour.cs" />
+        <Compile Include="Module\SoundChangeResult.cs" />
         <Compile Include="Patches\CA_UseItemPatches.cs" />
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="Utils\ItemUtils.cs" />
