@@ -4,7 +4,6 @@ using CustomItemSoundEffects.Features;
 using CustomItemSoundEffects.Utils;
 using HarmonyLib;
 using ItemStatsSystem;
-using UnityEngine;
 
 namespace CustomItemSoundEffects.Patches;
 
@@ -16,6 +15,7 @@ internal static class CA_UseItemPatches
     public static bool PostActionSoundPrefix(CA_UseItem __instance)
     {
         if (!UseItemUtils.TryGetItem(__instance, out Item? item)) return true;
+        if (ItemSoundEffectsManager.Instance is null) return true;
         if (!ItemSoundEffectsManager.Instance.TryGetFoodSoundEffects(item.TypeID, out ItemSoundEffects? effects))
             return true;
         if (effects.UseDefaultActionSound) return true;
@@ -28,6 +28,7 @@ internal static class CA_UseItemPatches
     public static bool PostUseSoundPrefix(CA_UseItem __instance)
     {
         if (!UseItemUtils.TryGetItem(__instance, out Item? item)) return true;
+        if (ItemSoundEffectsManager.Instance is null) return true;
         if (!ItemSoundEffectsManager.Instance.TryGetFoodSoundEffects(item.TypeID, out ItemSoundEffects? effects))
             return true;
         if (effects.UseDefaultUseSound) return true;
@@ -40,6 +41,7 @@ internal static class CA_UseItemPatches
     public static void StopSoundPrefix(CA_UseItem __instance)
     {
         if (!UseItemUtils.TryGetItem(__instance, out Item? item)) return;
+        if (ItemSoundEffectsManager.Instance is null) return;
         if (ItemSoundEffectsManager.Instance.TryGetFoodSoundEffects(item.TypeID,
                 out ItemSoundEffects? effects)) effects.FadeStop();
     }

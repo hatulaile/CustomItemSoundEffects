@@ -13,7 +13,7 @@ namespace CustomItemSoundEffects.Features;
 
 public class ItemSoundEffectsManager : MonoBehaviour
 {
-    [AllowNull] public static ItemSoundEffectsManager Instance { get; private set; }
+   public static ItemSoundEffectsManager? Instance { get; private set; }
 
     private Dictionary<int, ItemSoundEffects> _foodSoundEffects = new(64);
     public IReadOnlyDictionary<int, ItemSoundEffects> FoodSoundEffects => _foodSoundEffects;
