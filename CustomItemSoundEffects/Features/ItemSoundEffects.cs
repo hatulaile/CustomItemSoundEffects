@@ -12,6 +12,7 @@ namespace CustomItemSoundEffects.Features;
 public class ItemSoundEffects
 {
     private const string BUS_PATH = "bus:/Master/SFX";
+    private const float FADE_TIME = 0.25f;
 
     public ItemSoundEffectsEntry Entry { get; }
 
@@ -64,7 +65,7 @@ public class ItemSoundEffects
 
     public void FadeStop()
     {
-        _ = FadeOutAsync(0.5f);
+        _ = FadeOutAsync(FADE_TIME);
     }
 
     private async UniTask FadeOutAsync(float fadeTime = 1f)
@@ -72,11 +73,12 @@ public class ItemSoundEffects
         if (!_currentChannel.hasHandle()) return;
         var currentChannel = _currentChannel;
         _currentChannel = default;
+        if (currentChannel.getVolume(out float defaultVolume) is not RESULT.OK) return;
         while (currentChannel.hasHandle() &&
                currentChannel.getVolume(out float volume) is RESULT.OK && volume > 0.02f)
         {
             await UniTask.NextFrame();
-            if (currentChannel.setVolume(volume - fadeTime * Time.deltaTime / fadeTime) is not RESULT.OK)
+            if (currentChannel.setVolume(volume - (defaultVolume * Time.deltaTime / fadeTime)) is not RESULT.OK)
             {
                 break;
             }
